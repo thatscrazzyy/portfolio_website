@@ -1,97 +1,100 @@
-// src/App.jsx
 import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { ScrollControls, Float, SpotLight, Sparkles, useScroll } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { ScrollControls, Float, SpotLight, Sparkles, useScroll, HemisphereLight } from '@react-three/drei';
 import * as THREE from 'three';
 
-import { Overlay } from './components/Overlay';
 import { Projector } from './components/Projector';
 import { Screen } from './components/Screen';
-import { Seats } from './components/Seats';   // ⬅️ new
+import { Seats } from './components/Seats';
+import { Floor } from './components/Floor'; 
 
-const SECTIONS = 4;
+const SECTIONS = 6;
 
-const Background = () => (
-  <group>
-    <fog attach="fog" args={['#050000', 5, 45]} />
-    <Sparkles count={300} scale={20} size={3} speed={0.4} opacity={0.4} color="#ff0000" />
-  </group>
-);
-
-const SceneDirector = ({ projectorRef, lightRef }) => {
+const SceneLogic = ({ projectorRef, lightRef }) => {
   const scroll = useScroll();
+  const { camera } = useThree();
 
   useFrame((state) => {
-    const r2 = scroll.range(1 / SECTIONS, 1 / SECTIONS);
-    const r3 = scroll.range(2 / SECTIONS, 1 / SECTIONS);
-    const r4 = scroll.range(3 / SECTIONS, 1 / SECTIONS);
-
-    const targetX = 0 + r2 * 4 - r3 * 8 + r4 * 4;
-    const targetY = 0 - r2 * 1 + r4 * 1;
-    const targetZ = 0 + r2 * 5 - r3 * 2 + r4 * 5;
-
-    const rotY = 0 - r2 * 0.3 + r3 * 0.3;
-
+    const offset = scroll.offset; 
+    
+    // Projector Movement
+    const projectorX = -12 + (offset * 24); 
+    
     if (projectorRef.current) {
-      projectorRef.current.position.lerp(new THREE.Vector3(targetX, targetY, targetZ), 0.04);
-      projectorRef.current.rotation.y = THREE.MathUtils.lerp(
-        projectorRef.current.rotation.y,
-        rotY,
-        0.05
-      );
-      projectorRef.current.position.y += Math.sin(state.clock.elapsedTime) * 0.002;
+      projectorRef.current.position.x = THREE.MathUtils.lerp(projectorRef.current.position.x, projectorX, 0.05);
+      projectorRef.current.position.y = 1.5 + Math.sin(state.clock.elapsedTime) * 0.3;
+      // Always look at center of screen
+      projectorRef.current.lookAt(0, 2.5, 25);
     }
 
     if (lightRef.current && projectorRef.current) {
-      const lightPos = projectorRef.current.position.clone().add(new THREE.Vector3(0, 0, 2));
-      lightRef.current.position.lerp(lightPos, 0.1);
-      lightRef.current.target.position.set(targetX * 0.5, targetY, 25);
+      lightRef.current.position.copy(projectorRef.current.position);
+      lightRef.current.target.position.set(0, 2.5, 25);
       lightRef.current.target.updateMatrixWorld();
     }
+
+    // Camera follow
+    const camX = projectorX * 0.2; 
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, camX, 0.05);
+    // Look slightly above center screen
+    camera.lookAt(0, 4, 25);
   });
 
   return null;
 };
 
-const Experience = () => {
+export default function App() {
   const projectorRef = useRef();
   const lightRef = useRef();
 
   return (
-    <>
-      <SceneDirector projectorRef={projectorRef} lightRef={lightRef} />
+    <div className="w-full h-screen bg-black">
+      <Canvas shadows camera={{ position: [0, 3, -12], fov: 50 }}>
+        
+        <fog attach="fog" args={['#020202', 15, 60]} />
+        
+        {/* --- LIGHTING SETUP --- */}
+        
+        {/* 1. Ambient Fill - Soft light so nothing is pitch black */}
+        <HemisphereLight skyColor="#331111" groundColor="#000000" intensity={0.5} />
 
-      <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.2}>
-        <Projector ref={projectorRef} scale={0.4} />
-      </Float>
+        {/* 2. House Lights - Top-down spotlight to illuminate seats */}
+        <SpotLight
+          position={[0, 20, 15]}
+          angle={0.8}
+          penumbra={0.5}
+          intensity={2}
+          color="#ffedd6" // Warm theater light
+          castShadow
+          target-position={[0, 0, 15]}
+        />
 
-      <SpotLight
-        ref={lightRef}
-        position={[0, 0, 0]}
-        distance={40}
-        angle={0.6}
-        attenuation={10}
-        anglePower={4}
-        color="#fff5d6"
-        castShadow
-        penumbra={0.2}
-      />
+        {/* 3. Projector Beam Light (Brightest) */}
+        <SpotLight
+          ref={lightRef}
+          distance={60}
+          angle={0.4}
+          attenuation={5}
+          anglePower={4}
+          color="#fff"
+          intensity={400}
+          castShadow
+        />
 
-      <Screen />
-      <Seats />       {/* ⬅️ rows of red seats */}
-      <Background />
-      <Overlay />
-    </>
-  );
-};
+        {/* --- SCENE CONTENT --- */}
 
-export default function App() {
-  return (
-    <div className="w-full h-screen bg-[#050000]">
-      <Canvas shadows camera={{ position: [0, 0, 10], fov: 35 }}>
-        <ambientLight intensity={0.15} color="#ff0000" />
         <ScrollControls pages={SECTIONS} damping={0.2}>
-          <Experience />
+          <SceneLogic projectorRef={projectorRef} lightRef={lightRef} />
+
+          <Float speed={2} rotationIntensity={0.1} floatIntensity={0}>
+            <Projector ref={projectorRef} scale={0.5} />
+          </Float>
+
+          <Screen />
+          <Seats />
+          <Floor />
+          
+          <Sparkles count={400} scale={[40, 20, 40]} size={1} speed={0.4} opacity={0.3} color="#fff" />
         </ScrollControls>
       </Canvas>
     </div>

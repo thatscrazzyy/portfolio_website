@@ -1,43 +1,55 @@
-// src/components/Seats.jsx
-import React from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
+import * as THREE from 'three';
 
 export const Seats = () => {
-  const rows = 6;        // number of seat rows
-  const cols = 12;       // seats per row
-  const spacingX = 2.2;  // left/right spacing
-  const spacingZ = 2.3;  // front/back spacing
+  const meshRef = useRef();
+  const rows = 15;      // Increased rows for more depth
+  const cols = 14;      // Seats per row
+  const spacingX = 2.0; 
+  const spacingZ = 2.0; 
 
-  const meshes = [];
+  useLayoutEffect(() => {
+    const dummy = new THREE.Object3D();
+    let index = 0;
 
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const x = (c - (cols - 1) / 2) * spacingX; // center the grid
-      const z = 16 + r * spacingZ;               // push seats toward the screen
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        // Calculate position
+        const x = (c - (cols - 1) / 2) * spacingX;
+        
+        // Curve the seating slightly like a real theater
+        const curve = Math.abs(x) * 0.2; 
+        const z = 12 + r * spacingZ + curve; 
+        
+        // Create the seat curve (stadium seating style)
+        const y = -4 + (r * 0.2); 
 
-      meshes.push(
-        <group key={`${r}-${c}`} position={[x, -4, z]}>
-          {/* base cushion */}
-          <mesh castShadow>
-            <boxGeometry args={[1.7, 0.7, 1.4]} />
-            <meshStandardMaterial
-              color="#7f1d1d" // deep red
-              roughness={0.4}
-              metalness={0.1}
-            />
-          </mesh>
-          {/* backrest */}
-          <mesh position={[0, 0.9, -0.3]} castShadow>
-            <boxGeometry args={[1.7, 1.4, 0.5]} />
-            <meshStandardMaterial
-              color="#991b1b"
-              roughness={0.4}
-              metalness={0.1}
-            />
-          </mesh>
-        </group>
-      );
+        dummy.position.set(x, y, z);
+        
+        // Rotate slightly towards center screen
+        dummy.lookAt(0, -2, 25); 
+        
+        dummy.updateMatrix();
+        meshRef.current.setMatrixAt(index++, dummy.matrix);
+      }
     }
-  }
+    meshRef.current.instanceMatrix.needsUpdate = true;
+  }, []);
 
-  return <group>{meshes}</group>;
+  return (
+    <instancedMesh 
+      ref={meshRef} 
+      args={[null, null, rows * cols]} 
+      castShadow 
+      receiveShadow
+    >
+      {/* Simple seat geometry: Base + Back merged visually */}
+      <boxGeometry args={[1.5, 1.5, 1.5]} />
+      <meshStandardMaterial 
+        color="#500000" 
+        roughness={0.8}
+        metalness={0.1}
+      />
+    </instancedMesh>
+  );
 };
