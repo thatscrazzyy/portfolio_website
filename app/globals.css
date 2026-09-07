@@ -1434,6 +1434,175 @@ footer p {
     transform 0.25s;
   white-space: nowrap;
 }
+.hero-scene {
+  cursor: crosshair;
+}
+.stamp-widget {
+  position: absolute;
+  right: 4%;
+  bottom: 105px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--paper);
+}
+.stamp-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #e9e3cf99;
+  background: #111714bb;
+  color: var(--paper);
+  padding: 8px 11px;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background .2s, transform .2s;
+}
+.stamp-button:hover {
+  background: var(--accent);
+  transform: translateY(-2px) rotate(-1deg);
+}
+.stamp-button small {
+  display: block;
+  font-size: 8px;
+  line-height: 1.2;
+  opacity: .8;
+}
+.stamp-button strong {
+  color: #efb363;
+  margin-left: 5px;
+}
+.stamp-glyph {
+  font-size: 25px;
+  line-height: 1;
+}
+.stamp-message {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 7px);
+  width: max-content;
+  max-width: 240px;
+  padding: 5px 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 9px;
+}
+.stamp-wall {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  max-width: 105px;
+  overflow: hidden;
+}
+.visitor-stamp {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 12px;
+  opacity: .9;
+}
+.visitor-stamp.rust { color: #e06b4d; }
+.visitor-stamp.moss { color: #91b68c; }
+.visitor-stamp.ochre { color: #efb363; }
+.visitor-stamp.cream { color: var(--paper); }
+.astronaut-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 70;
+  transform: translateX(-50%);
+  padding: 8px 12px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--line);
+  font-size: 10px;
+  pointer-events: none;
+}
+.constellation-star {
+  position: fixed;
+  z-index: 60;
+  color: var(--accent);
+  font: 14px/1 Georgia, serif;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: constellation-fade 1.1s ease-out forwards;
+}
+@keyframes constellation-fade {
+  from { opacity: .95; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(45deg); }
+}
+.recruiter-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #050706dd;
+}
+.recruiter-card {
+  position: relative;
+  width: min(560px, 100%);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  padding: clamp(28px, 6vw, 58px);
+  box-shadow: 12px 12px 0 #bf452b;
+}
+.recruiter-card > p:first-of-type {
+  color: var(--accent);
+  font-size: 10px;
+  letter-spacing: .12em;
+}
+.recruiter-card h2 {
+  font-size: clamp(48px, 9vw, 85px);
+  margin: 22px 0;
+}
+.recruiter-card > p:not(:first-of-type) {
+  max-width: 420px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+.recruiter-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+.recruiter-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin: 28px 0;
+  font: 12px/1.4 'IBM Plex Mono', monospace;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.recruiter-links a:hover { color: var(--accent); }
+.recruiter-card > small { font-size: 9px; opacity: .7; }
+@media (max-width: 760px) {
+  .stamp-widget {
+    right: 15px;
+    bottom: 96px;
+    left: 15px;
+    justify-content: flex-end;
+  }
+  .stamp-wall { max-width: 82px; }
+  .visitor-stamp { width: 17px; height: 17px; font-size: 10px; }
+  .stamp-button { font-size: 10px; }
+  .astronaut-toast { width: calc(100% - 30px); text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .constellation-star { animation: none; opacity: .7; }
+}
 .quirk-prompt:hover {
   color: var(--accent);
   transform: rotate(-2deg);
