@@ -13,10 +13,14 @@ export default function DjEgg() {
     const details = document.getElementById('sidequest') as HTMLDetailsElement | null;
     const stopWhenClosed = () => { if (!details?.open) stopRef.current(); };
     details?.addEventListener('toggle', stopWhenClosed);
+    const secret = document.getElementById('dj-secret') as HTMLDetailsElement | null;
+    const stopSecret = () => { if (!secret?.open) stopRef.current(); };
+    secret?.addEventListener('toggle', stopSecret);
     return () => {
       stopRef.current();
       document.removeEventListener('visibilitychange', stopWhenHidden);
       details?.removeEventListener('toggle', stopWhenClosed);
+      secret?.removeEventListener('toggle', stopSecret);
     };
   }, []);
 
