@@ -1526,6 +1526,21 @@ footer p {
   transform: rotate(-2deg);
 }
 
+.tile-image.mcp-art { background-image: url('/images/astronaut.webp'); background-position: center; }
+.tile-image.agent-art { background-image: url('/images/space-background.webp'); background-position: 80% 40%; }
+.exploration-note { padding: 24px 0; border-top: 1px solid var(--line); scroll-margin-top: 28px; }
+.exploration-note h3 { font-size: 26px; margin: 0 0 10px; }
+.exploration-note p { max-width: 780px; font-size: 16px; line-height: 1.7; margin: 0; }
+.dj-egg { border-top: 1px dashed var(--line); margin: 24px 0; padding-top: 8px; }
+.dj-trigger { display: inline-flex; align-items: center; gap: 28px; min-height: 48px; padding: 12px 18px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; font-size: 12px; }
+.dj-trigger:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.dj-levels { display: flex; align-items: center; gap: 3px; height: 24px; }
+.dj-levels i { width: 3px; height: 4px; background: #d5eaf4; transform-origin: center; }
+.is-playing .dj-levels i { height: 22px; animation: dj-level .5s ease-in-out infinite alternate; }
+.dj-message { display: block; font-size: 12px; margin-top: 12px; }
+@keyframes dj-level { from { transform: scaleY(.15); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { .is-playing .dj-levels i { animation: none; height: 14px; } }
+
 .constellation-section { max-width: 1280px; margin: 65px auto 0; border-top: 1px solid var(--ink); padding-top: 19px; }
 .constellation-heading { display: flex; align-items: baseline; gap: 18px; }
 .constellation-heading h2 { margin: 0; font-size: clamp(30px, 4vw, 56px); }
