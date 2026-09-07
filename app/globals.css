@@ -1437,79 +1437,6 @@ footer p {
 .hero-scene {
   cursor: crosshair;
 }
-.stamp-widget {
-  position: absolute;
-  right: 4%;
-  bottom: 105px;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--paper);
-}
-.stamp-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  border: 1px solid #e9e3cf99;
-  background: #111714bb;
-  color: var(--paper);
-  padding: 8px 11px;
-  font: inherit;
-  cursor: pointer;
-  text-align: left;
-  transition: background .2s, transform .2s;
-}
-.stamp-button:hover {
-  background: var(--accent);
-  transform: translateY(-2px) rotate(-1deg);
-}
-.stamp-button small {
-  display: block;
-  font-size: 8px;
-  line-height: 1.2;
-  opacity: .8;
-}
-.stamp-button strong {
-  color: #efb363;
-  margin-left: 5px;
-}
-.stamp-glyph {
-  font-size: 25px;
-  line-height: 1;
-}
-.stamp-message {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 7px);
-  width: max-content;
-  max-width: 240px;
-  padding: 5px 8px;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 9px;
-}
-.stamp-wall {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  max-width: 105px;
-  overflow: hidden;
-}
-.visitor-stamp {
-  display: inline-grid;
-  place-items: center;
-  width: 20px;
-  height: 20px;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  font-size: 12px;
-  opacity: .9;
-}
-.visitor-stamp.rust { color: #e06b4d; }
-.visitor-stamp.moss { color: #91b68c; }
-.visitor-stamp.ochre { color: #efb363; }
-.visitor-stamp.cream { color: var(--paper); }
 .astronaut-toast {
   position: fixed;
   left: 50%;
@@ -1589,15 +1516,6 @@ footer p {
 .recruiter-links a:hover { color: var(--accent); }
 .recruiter-card > small { font-size: 9px; opacity: .7; }
 @media (max-width: 760px) {
-  .stamp-widget {
-    right: 15px;
-    bottom: 96px;
-    left: 15px;
-    justify-content: flex-end;
-  }
-  .stamp-wall { max-width: 82px; }
-  .visitor-stamp { width: 17px; height: 17px; font-size: 10px; }
-  .stamp-button { font-size: 10px; }
   .astronaut-toast { width: calc(100% - 30px); text-align: center; }
 }
 @media (prefers-reduced-motion: reduce) {
