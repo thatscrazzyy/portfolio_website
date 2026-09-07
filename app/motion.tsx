@@ -1,12 +1,21 @@
 'use client';
 import { useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export default function Motion() {
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const media = gsap.matchMedia();
-    media.add('(prefers-reduced-motion: no-preference)', () => {
+    let disposed = false;
+    let revert = () => {};
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    const start = async () => {
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+      ]);
+      if (disposed) return;
+      gsap.registerPlugin(ScrollTrigger);
+      const media = gsap.matchMedia();
+      revert = () => media.revert();
+      media.add('(prefers-reduced-motion: no-preference)', () => {
       gsap.from('.hero h1 span', { y: 22, opacity: 0, stagger: .09, duration: 1.1, ease: 'power3.out', clearProps: 'all' });
       gsap.from('.intro, .hero-note, .scroll-link', { opacity: 0, y: 15, stagger: .12, duration: .8, delay: .5, clearProps: 'all' });
       gsap.to('.astronaut-layer', { y: -9, rotation: .6, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' });
@@ -19,12 +28,23 @@ export default function Motion() {
       document.querySelectorAll('img').forEach(img => { if (!img.complete) img.addEventListener('load', refresh, { once: true }); });
       document.querySelectorAll('details').forEach(detail => detail.addEventListener('toggle', refresh));
       document.fonts.ready.then(refresh);
-      return () => {
+        return () => {
         document.querySelectorAll('img').forEach(img => img.removeEventListener('load', refresh));
         document.querySelectorAll('details').forEach(detail => detail.removeEventListener('toggle', refresh));
       };
-    });
-    return () => media.revert();
+      });
+    };
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(() => void start(), { timeout: 800 });
+    } else {
+      timeoutId = setTimeout(() => void start(), 250);
+    }
+    return () => {
+      disposed = true;
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
+      revert();
+    };
   }, []);
   return <div className="reading-progress" aria-hidden="true"/>;
 }
