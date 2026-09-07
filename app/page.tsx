@@ -1,4 +1,5 @@
 import Motion from './motion';
+import DisclosureMotion from './disclosure-motion';
 import EasterEggs from './easter-eggs';
 import ConstellationWall from './constellation-wall';
 import { FeaturedProjects, Explorations } from './project-cards';
@@ -20,7 +21,7 @@ export default async function Home(){
   knowsAbout:['Software Engineering','Cloud Architecture','AI Agents','Solutions Engineering','Product Engineering'],
  };
  const siteJsonLd={'@context':'https://schema.org','@type':'WebSite',name:'Samarth Jagtap',url:'https://thesamarthjagtap.com/',description:'Portfolio of Samarth Jagtap, a software engineering senior building cloud applications, AI tools, and creative technology.'};
-return <main id="top" className="portfolio"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(personJsonLd)}}/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(siteJsonLd)}}/><Motion/>
+return <main id="top" className="portfolio"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(personJsonLd)}}/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(siteJsonLd)}}/><Motion/><DisclosureMotion/>
 <a className="skip-link" href="#projects">Skip to projects</a>
 <section className="hero"><img className="hero-image" src="/images/space-background.webp" alt="" fetchPriority="high" decoding="async" width="2400" height="4267"/><div className="hero-scene" role="button" tabIndex={0} aria-label="Click the astronaut for a mission update"><img className="astronaut-layer" src="/images/astronaut-layer.webp" alt="An astronaut tethered to a spacecraft, floating in space" loading="eager" decoding="async" width="2400" height="4267"/></div>
 <nav aria-label="Main navigation"><div className="nav-links"><a href="#top">HOME</a><a href="#about">ABOUT</a><a href="#projects">PROJECTS</a><a href="#experience">EXPERIENCE</a><a href="#contact">CONTACT</a></div><Crosshair className="nav-mark" size={30}/></nav>

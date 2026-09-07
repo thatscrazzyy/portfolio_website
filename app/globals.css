@@ -575,11 +575,6 @@ h3,
   gap: 12px;
   margin-top: 25px;
 }
-.credentials span {
-  border: 1px solid var(--line);
-  padding: 7px 11px;
-  font-size: 10px;
-}
 .education {
   font-size: 12px;
   line-height: 1.8;
@@ -983,9 +978,6 @@ footer p {
   .experience details > p {
     margin-right: 10px;
     font-size: 16px;
-  }
-  .credentials span {
-    font-size: 9px;
   }
   .education {
     font-size: 10px;
@@ -1594,3 +1586,63 @@ details[open] > summary .project-hint svg { transform: rotate(45deg); }
 @keyframes wall-star-in { from { opacity: 0; transform: translate(-50%, -50%) scale(0); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
 @media (max-width: 760px) { .constellation-section { margin-top: 42px; } .constellation-heading { flex-wrap: wrap; gap: 10px 14px; } .constellation-heading p { width: 100%; margin-left: 0; } .constellation-field { min-height: 240px; } .constellation-copy { left: 16px; bottom: 16px; font-size: 9px; } }
 @media (prefers-reduced-motion: reduce) { .wall-star { animation: none; } }
+
+/* Shared certificate rhythm, whether the row is a link or a disclosure. */
+.certifications > .credentials { grid-template-columns: 1fr; }
+.credentials a, .credentials .aws-bundle > summary {
+  position: relative; display: block; padding: 20px 32px 20px 0;
+  min-height: 88px; font-size: 16px; line-height: 1.4;
+}
+.credentials .aws-bundle > summary > span:first-child {
+  display: block; padding: 0; border: 0; font-size: 16px; line-height: 1.4;
+}
+.credentials a > small, .credentials .aws-bundle > summary > small {
+  display: block; margin-top: 9px; font-size: 12px; line-height: 1.6;
+}
+.credentials .aws-bundle > summary > span:last-child {
+  position: absolute; top: 20px; right: 0; width: 18px; padding: 0;
+  border: 0; font-size: 20px; line-height: 20px; text-align: center;
+}
+.aws-bundle > .credentials { margin: 0 0 16px 16px; padding-left: 16px; border-left: 2px solid var(--line); }
+.aws-bundle > .credentials a:last-child { border-bottom: 0; }
+summary { -webkit-tap-highlight-color: transparent; }
+summary:focus-visible, button:focus-visible, .outline-link:focus-visible, .credentials a:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 5px;
+}
+.project-hint svg, .aws-bundle > summary > span:last-child, .sidequest summary > span, .role-dropdown summary > span {
+  transition: transform 240ms cubic-bezier(.22, 1, .36, 1);
+}
+details[data-expanding="false"] > summary .project-hint svg,
+.aws-bundle[data-expanding="false"] > summary > span:last-child { transform: rotate(0); }
+.project-disclosure > summary, .exploration-disclosure > summary {
+  transition: background-color 160ms ease;
+}
+.project-disclosure > summary:active, .exploration-disclosure > summary:active { background-color: #bf452b0c; }
+.project-disclosure > summary:active .project-art img { transform: scale(.985); transition-duration: 100ms; }
+.project-disclosure[open] .project-hint, .exploration-disclosure[open] .project-hint { color: var(--accent); }
+.sidequest summary, .role-dropdown summary { min-height: 44px; align-items: center; }
+.dj-trigger, .transmission-actions button, .outline-link { transition: transform 160ms ease, background-color 160ms ease; }
+.dj-trigger:active, .transmission-actions button:active, .outline-link:active { transform: scale(.97); }
+.radio-transmission { animation: received 240ms ease-out; }
+@keyframes received { from { opacity: .35; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@media (hover: hover) and (pointer: fine) {
+  .credentials a:hover, .aws-bundle > summary:hover { background: #bf452b08; }
+  .aws-bundle > summary:hover > span:first-child { color: var(--accent); }
+}
+@media (max-width: 760px) {
+  .about-body { display: flex; flex-direction: column; gap: 24px; }
+  .about-art { width: 100%; height: clamp(200px, 48vw, 300px); min-height: 0; margin: 0; background-size: cover; background-position: 55% 28%; }
+  .about-body > div { min-width: 0; }
+  .about-body h3 { font-size: clamp(36px, 7vw, 48px); line-height: 1.06; }
+  .about-body p { max-width: 100%; font-size: 16px; line-height: 1.7; }
+  .about .section-heading { gap: 14px; flex-wrap: wrap; }
+  .about .section-heading .meta { display: none; }
+  .about-body .explore-panel { display: none; }
+  .aws-bundle > .credentials { grid-template-columns: 1fr; margin-left: 8px; padding-left: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-hint svg, .aws-bundle > summary > span:last-child, .sidequest summary > span, .role-dropdown summary > span,
+  .project-disclosure > summary, .exploration-disclosure > summary, .dj-trigger, .transmission-actions button, .outline-link { transition: none; }
+  .radio-transmission { animation: none; }
+  .project-disclosure > summary:active .project-art img, .dj-trigger:active, .transmission-actions button:active, .outline-link:active { transform: none; }
+}
