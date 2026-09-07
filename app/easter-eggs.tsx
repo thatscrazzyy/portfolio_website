@@ -2,14 +2,6 @@
 
 import { useEffect, useState } from 'react';
 
-const statusLines = [
-  'STATUS: PROBABLY OVERTHINKING IT',
-  'STATUS: SHIP IT, THEN CHECK THE LOGS',
-  'STATUS: ASK ME ABOUT THE ROBOT',
-  'STATUS: THE ASTRONAUT HAS A PLAN',
-  'STATUS: NOMINALLY STABLE',
-];
-
 export default function EasterEggs() {
   const [recruiterOpen, setRecruiterOpen] = useState(false);
   const [astronautMessage, setAstronautMessage] = useState('');
@@ -41,14 +33,6 @@ export default function EasterEggs() {
     astronaut?.addEventListener('click', clickAstronaut);
     astronaut?.addEventListener('keydown', keyAstronaut);
 
-    const prompt = document.querySelector<HTMLElement>('.quirk-prompt');
-    let line = 0;
-    const statusTimer = window.setInterval(() => {
-      if (!prompt) return;
-      line = (line + 1) % statusLines.length;
-      prompt.textContent = statusLines[line];
-    }, 4200);
-
     const addStar = (event: PointerEvent) => {
       const now = performance.now();
       if (now - lastPointer < 85) return;
@@ -66,7 +50,6 @@ export default function EasterEggs() {
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('pointermove', addStar);
-      window.clearInterval(statusTimer);
       astronaut?.removeEventListener('click', clickAstronaut);
       astronaut?.removeEventListener('keydown', keyAstronaut);
     };
