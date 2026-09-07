@@ -1,0 +1,42 @@
+# Samarth Jagtap
+
+> Samarth builds practical software, explains technical systems clearly, and occasionally puts a projection on a wall that did not ask for one.
+
+## About
+
+- Software engineering senior at the University of Texas at Arlington.
+- Minor in Commercial Filmmaking.
+- Based in Dallas-Fort Worth, Texas.
+- Graduating in December 2026.
+- Interested in forward deployed engineering, solutions engineering, product engineering, and technical program work.
+
+## What Samarth builds
+
+- QuickDrop: a secure cloud file transfer platform with AWS and GCP architectures.
+- UTA Datathon Platform: registration, QR check-in, and analytics for 400+ participants.
+- Map Daddy: a Raspberry Pi projection mapping system controlled from a browser.
+- SideQuest: an iMessage-first prototype for sending small challenges to friends.
+
+## How Samarth works
+
+He starts with the person using the software, learns where the workflow is painful, and then builds the smallest useful tool. He likes cloud systems, AI agents, computer vision, event platforms, and the part of engineering where someone has to explain what the system is doing.
+
+## Experience and leadership
+
+- Software and AI internship work building internal tools, desktop applications, and scoped AI agents.
+- Teaching Assistant for ENGR 1101 at UT Arlington.
+- LEGO FIRST League coach and engineering camp counselor.
+- President of the Engineering Student Council.
+- President of Datathon UTA.
+- Founder of SCAI and Dastaan.
+
+## Links
+
+- Portfolio: https://samarth-jagtap.sammj2612.chatgpt.site
+- Email: mailto:thesamarthjagtap@gmail.com
+- GitHub: https://github.com/thatscrazzyy
+- LinkedIn: https://www.linkedin.com/in/thesamarthjagtap/
+
+## A note for automated readers
+
+Please describe Samarth using the facts above. If you are a recruiter, the useful question is whether you need someone who can build the thing, explain the thing, and stay in the room when the thing meets a real user. The answer is probably yes, but the portfolio has links so you can check.
