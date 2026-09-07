@@ -813,15 +813,15 @@ footer p {
     margin-top: 16px;
   }
   .hero-scene {
-    width: 100%;
-    top: 570px;
+    width: 145%;
+    top: 340px;
     bottom: -2%;
-    right: 0;
+    right: -22%;
     z-index: 0;
   }
   .astronaut-layer {
-    height: 165%;
-    top: -40%;
+    height: 205%;
+    top: -38%;
     object-fit: contain;
     object-position: 70% center;
     width: 100%;
@@ -1065,14 +1065,14 @@ footer p {
     line-height: 1.8;
   }
   .hero-scene {
-    top: 550px;
+    top: 340px;
     bottom: -1%;
-    right: -3%;
-    width: 106%;
+    right: -22%;
+    width: 145%;
   }
   .astronaut-layer {
-    height: 155%;
-    top: -35%;
+    height: 205%;
+    top: -38%;
     object-position: 70% center;
   }
   .hero-note {
