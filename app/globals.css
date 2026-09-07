@@ -766,8 +766,8 @@ footer p {
     padding: 12px;
   }
   .hero {
-    height: auto;
-    min-height: 930px;
+    height: calc(100svh - 24px);
+    min-height: calc(100svh - 24px);
   }
   .hero nav {
     margin: 0 20px;
@@ -1045,7 +1045,8 @@ footer p {
     padding: 30px 19px 0;
   }
   .hero {
-    min-height: 930px;
+    height: calc(100svh - 24px);
+    min-height: calc(100svh - 24px);
   }
   .hero h1 {
     font-size: 19.3vw;
