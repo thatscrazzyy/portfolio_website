@@ -10,14 +10,21 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://thesamarthjagtap.com',
-    title: 'Samarth Jagtap | Software Engineer, Solutions Builder',
+    title: 'Samarth Jagtap',
     description: 'Cloud applications, AI tools, event platforms, and creative technology by Samarth Jagtap.',
     siteName: 'Samarth Jagtap',
+    images: [{
+      url: 'https://thesamarthjagtap.com/og.png',
+      width: 1200,
+      height: 630,
+      alt: 'Samarth Jagtap floating through a textured green and ochre space scene',
+    }],
   },
   twitter: {
-    card: 'summary',
-    title: 'Samarth Jagtap | Software Engineer, Solutions Builder',
+    card: 'summary_large_image',
+    title: 'Samarth Jagtap',
     description: 'Cloud applications, AI tools, event platforms, and creative technology by Samarth Jagtap.',
+    images: ['https://thesamarthjagtap.com/og.png'],
   },
 };
 export default function RootLayout({ children }: Readonly<{children: React.ReactNode}>) {
