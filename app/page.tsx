@@ -10,12 +10,24 @@ export default async function Home(){
  const host=(await headers()).get('host') ?? '';
  const role=host.split('.')[0];
  const variant=role==='fde'?{kicker:'FORWARD DEPLOYED ENGINEERING',name:'SAMARTH JAGTAP.',intro:'I build in the middle of real operations, where the problem is still changing.',detail:'FIELD MINDED. PRODUCT CURIOUS. COMFORTABLE WITH AMBIGUITY AND USERS.'}:role==='swe'?{kicker:'SOFTWARE ENGINEERING',name:'SAMARTH JAGTAP.',intro:'I build full stack systems that are fast, useful, and easy to keep running.',detail:'CLOUD APPS. INTERNAL TOOLS. AI SYSTEMS THAT HAVE TO WORK.'}:role==='se'?{kicker:'SOLUTIONS ENGINEERING',name:'SAMARTH JAGTAP.',intro:'I learn the problem, build the demo, and explain the tradeoffs clearly.',detail:'TECHNICAL COMMUNICATION. CUSTOMER CONTEXT. WORKING SOFTWARE.'}:{kicker:'SOFTWARE · SOLUTIONS · STORIES',name:'SAMARTH JAGTAP.',intro:'I build software that helps people get their work done.',detail:'SOFTWARE ENGINEERING SENIOR AT UT ARLINGTON. WORKING ON CLOUD APPS AND AI TOOLS.'};
- return <main id="top" className="portfolio"><Motion/>
+ const personJsonLd={
+  '@context':'https://schema.org',
+  '@type':'Person',
+  name:'Samarth Jagtap',
+  url:'https://thesamarthjagtap.com/',
+  email:'thesamarthjagtap@gmail.com',
+  jobTitle:'Software Engineering Senior',
+  alumniOf:{'@type':'CollegeOrUniversity',name:'University of Texas at Arlington'},
+  sameAs:['https://github.com/thatscrazzyy','https://www.linkedin.com/in/thesamarthjagtap/'],
+  knowsAbout:['Software Engineering','Cloud Architecture','AI Agents','Solutions Engineering','Product Engineering'],
+ };
+ const siteJsonLd={'@context':'https://schema.org','@type':'WebSite',name:'Samarth Jagtap',url:'https://thesamarthjagtap.com/',description:'Portfolio of Samarth Jagtap, a software engineering senior building cloud applications, AI tools, and creative technology.'};
+ return <main id="top" className="portfolio"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(personJsonLd)}}/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(siteJsonLd)}}/><Motion/>
 <a className="skip-link" href="#projects">Skip to projects</a>
 <section className="hero"><img className="hero-image" src="/images/space-background.webp" alt="" fetchPriority="high" width="3240" height="5760"/><div className="hero-scene"><img className="astronaut-layer" src="/images/astronaut-layer.webp" alt="An astronaut tethered to a spacecraft, floating in space" width="3240" height="5760"/></div>
 <nav aria-label="Main navigation"><div className="nav-links"><a href="#top">HOME</a><a href="#about">ABOUT</a><a href="#projects">PROJECTS</a><a href="#experience">EXPERIENCE</a><a href="#contact">CONTACT</a></div><Crosshair className="nav-mark" size={30}/></nav>
 <div className="hero-content"><p className="hero-kicker mono">{variant.kicker}</p><h1><span>SAMARTH</span><span>JAGTAP.</span></h1><p className="intro">{variant.intro}</p><p className="hero-description mono">{variant.detail}</p><a className="scroll-link mono" href="#projects"><ArrowDown size={28} strokeWidth={1}/><span>SCROLL TO<br/>EXPLORE THE WORK</span></a></div><span className="hero-note mono">SAME CHAOS.<br/>BIGGER IDEAS.<span className="plus">＋</span></span>
-</section><div className="status-strip mono"><Globe2 size={28}/><span><small>CURRENTLY:</small>BUILDING COOL THINGS.</span><span className="location"><small>BASED IN:</small>DALLAS-FORT WORTH, TX</span><i className="barcode" aria-hidden="true"/></div>
+</section><div className="status-strip mono"><Globe2 size={28}/><span><small>CURRENTLY:</small>BUILDING COOL THINGS.</span><span className="location"><small>BASED IN:</small>DALLAS-FORT WORTH, TX</span><span className="quirk-prompt" title="Yes, this is a real status update.">STATUS: PROBABLY OVERTHINKING IT</span><i className="barcode" aria-hidden="true"/></div>
 <section id="projects" className="projects"><div className="eyebrow mono"><span>01.</span><a href="https://github.com/thatscrazzyy" target="_blank" rel="noreferrer">VIEW GITHUB <ArrowRight size={16}/></a></div><h2 className="featured-title">FEATURED PROJECTS</h2><div className="project-list">{projects.map((p,i)=><a key={p.name} className={'project project-'+i} href={p.href} target="_blank" rel="noreferrer"><span className="project-number mono">0{i+1}</span><div className="project-art"><img src={p.image} alt="" loading="lazy" width="1536" height="1024"/><span className="art-cross">+</span></div><div className="project-info"><h3>{p.name}</h3><p className="mono">{p.description}</p><div className="tags">{p.tags.map(t=><span key={t}>{t}</span>)}</div></div><ArrowUpRight className="project-arrow" size={29} strokeWidth={1.5}/></a>)}</div></section>
 <section className="selected-work" id="selected-work"><div className="section-heading"><span className="mono">02.</span><h2>MORE EXPLORATIONS</h2><a className="meta mono" href="https://github.com/thatscrazzyy" target="_blank" rel="noreferrer">MORE PROJECTS <ArrowRight size={15}/></a></div><div className="work-grid">
 <a href="https://igvc-web.vercel.app/" target="_blank" rel="noreferrer" className="work-tile"><div className="tile-image lunar"/><h3 className="mono">01. AUTONOMY</h3><p className="mono">ROBOTICS / VISION</p></a>
